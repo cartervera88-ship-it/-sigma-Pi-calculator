@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGMA π Calculator - AI Business Decisions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .criteria {
+            margin: 20px 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .score-display {
+            font-size: 1.2em;
+            text-align: right;
+            margin-top: 5px;
+        }
+        
+        .calculate-btn {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .result {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .pi-score {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 SIGMA π Calculator</h1>
+        <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">
+            AI-Powered Business Decision Scoring System
+        </p>
+        
+        <div class="criteria">
+            <label for="impact">💰 Impact - Financial & Strategic Value</label>
+            <input type="range" id="impact" min="1" max="10" value="5" oninput="updateScore(this, 'impact-score')">
+            <div class="score-display" id="impact-score">5/10</div>
+        </div>
+        
+        <div class="criteria">
+            <label for="covenant">🎯 Covenant Fit - Alignment with Company Values</label>
+            <input type="range" id="covenant" min="1" max="10" value="5" oninput="updateScore(this, 'covenant-score')">
+            <div class="score-display" id="covenant-score">5/10</div>
+        </div>
+        
+        <div class="criteria">
+            <label for="domain">🔧 Domain Match - Our Expertise & Capabilities</label>
+            <input type="range" id="domain" min="1" max="10" value="5" oninput="updateScore(this, 'domain-score')">
+            <div class="score-display" id="domain-score">5/10</div>
+        </div>
+        
+        <div class="criteria">
+            <label for="transformation">🚀 Transformation Gain - Growth & Innovation Potential</label>
+            <input type="range" id="transformation" min="1" max="10" value="5" oninput="updateScore(this, 'transformation-score')">
+            <div class="score-display" id="transformation-score">5/10</div>
+        </div>
+        
+        <button class="calculate-btn" onclick="calculatePi()">Calculate π Score</button>
+        
+        <div id="result" class="result" style="display: none;">
+            <div class="pi-score" id="pi-value">0.00</div>
+            <div id="recommendation" style="font-size: 1.3em; margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateScore(slider, scoreId) {
+            document.getElementById(scoreId).textContent = slider.value + '/10';
+        }
+        
+        function calculatePi() {
+            // Get values from sliders
+            const impact = parseInt(document.getElementById('impact').value);
+            const covenant = parseInt(document.getElementById('covenant').value);
+            const domain = parseInt(document.getElementById('domain').value);
+            const transformation = parseInt(document.getElementById('transformation').value);
+            
+            // Calculate π score using our formula
+            const w1 = 0.30; // Impact weight
+            const w2 = 0.20; // Covenant weight  
+            const w3 = 0.25; // Domain weight
+            const w4 = 0.25; // Transformation weight
+            
+            const piScore = (w1 * impact) + (w2 * covenant) + (w3 * domain) + (w4 * transformation);
+            
+            // Get recommendation
+            let recommendation = "";
+            if (piScore >= 8.0) {
+                recommendation = "🚀 HIGHLY RECOMMENDED - Execute immediately";
+            } else if (piScore >= 6.5) {
+                recommendation = "✅ RECOMMENDED - Strong strategic fit";
+            } else if (piScore >= 5.0) {
+                recommendation = "⚠️ CONSIDER - Proceed with caution";
+            } else if (piScore >= 3.0) {
+                recommendation = "❌ NOT RECOMMENDED - High risk";
+            } else {
+                recommendation = "🛑 AVOID - Major red flags";
+            }
+            
+            // Display results
+            document.getElementById('pi-value').textContent = piScore.toFixed(2);
+            document.getElementById('recommendation').textContent = recommendation;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
